@@ -19,4 +19,16 @@ attempts, and attack traffic from the Kali Linux machine.
 3. Failed Logon Attempts — single value counter for brute force detection
 ![Failed Logon Attempts](Failed%20Logon%20Attempts.png)
 
-4. Logons from Kali
+4. Logons from Kali Attack Machine — forensic table showing all attack traffic
+![Logons from Kali Attack Machine](Logons%20from%20Kali%20Attack%20Machine.png)
+
+## SPL Queries Used
+- Panel 1: index=main source="WinEventLog:Security" EventCode=4624 | timechart count by Account_Name
+- Panel 2: index=main source="WinEventLog:Security" EventCode=4624 | stats count by Account_Name | sort -count | head 10
+- Panel 3: index=main source="WinEventLog:Security" EventCode=4625 | stats count
+- Panel 4: index=main source="WinEventLog:Security" EventCode=4624 Workstation_Name=kali | table _time, Account_Name, Workstation_Name, Logon_Type | sort -_time | head 20
+
+## Author
+Houston Jones | Atlanta, GA
+GitHub: hjones360
+Medium: medium.com/@agentjones
